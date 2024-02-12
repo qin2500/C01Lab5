@@ -7,9 +7,9 @@ on:
     branches: ["main", "dev"]
 
 
-jobs:
+job: 
   build:
-    name: Backend test
+    name: mongod server
     runs-on: ubuntu-latest
 
     defaults:
@@ -27,6 +27,34 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-      - run: sudo service Mongodb start
+      - run: npm i
+      - run: mongod --dbpath=./data/db
+      - run: npm run dev
+
+
+
+
+jobs:
+  build:
+    name: Backend test
+    runs-on: ubuntu-latest
+
+
+
+    defaults:
+      run:
+        working-directory: ./quirknotes/backend
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
       - run: npm i
       - run: npm test
