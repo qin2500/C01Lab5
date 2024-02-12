@@ -35,5 +35,5 @@ jobs:
 
       
       - run: npm i
-      - run: npm run dev &
+      - run: npm run dev & sleep 10
       - run: npm test
