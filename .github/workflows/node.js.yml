@@ -6,6 +6,7 @@ on:
   pull_request:
     branches: ["main", "dev"]
 
+
 jobs:
   build:
     name: Backend test
@@ -26,6 +27,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-
+      - run: sudo service Mongodb start
       - run: npm i
       - run: npm test
