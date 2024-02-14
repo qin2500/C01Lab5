@@ -52,8 +52,7 @@ test("/deleteNote - Delete a note", async () => {
     }),
   });
   const postNoteBody = await postNoteRes.json();
-  console.log(postNoteBody)
-  const deleteNoteRes = await fetch(`${SERVER_URL}/deleteNote/${postNoteBody.id}`, {
+  const deleteNoteRes = await fetch(`${SERVER_URL}/deleteNote/${postNoteBody.insertedId}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -62,7 +61,7 @@ test("/deleteNote - Delete a note", async () => {
 
   const poo = await deleteNoteRes.json();
   expect(deleteNoteRes.status).toBe(200);
-  expect(poo.response).toBe(`Document with ID ${postNoteBody.id} deleted.`);
+  expect(poo.response).toBe(`Document with ID ${postNoteBody.insertedId} deleted.`);
   
 });
 
@@ -82,7 +81,7 @@ test("/patchNote - Patch with content and title", async () => {
   });
   const postNoteBody = await postNoteRes.json();
   
-  const patchRes = await fetch(`${SERVER_URL}/patchNote/${postNoteBody.id}`, {
+  const patchRes = await fetch(`${SERVER_URL}/patchNote/${postNoteBody.insertedId}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -94,7 +93,7 @@ test("/patchNote - Patch with content and title", async () => {
   });
   const poo = await patchRes.json();
   expect(patchRes.status).toBe(200);
-  expect(poo.response).toBe(`Document with ID ${postNoteBody.id} patched.`);
+  expect(poo.response).toBe(`Document with ID ${postNoteBody.insertedId} patched.`);
 
 });
 
