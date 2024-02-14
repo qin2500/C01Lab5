@@ -52,7 +52,7 @@ test("/deleteNote - Delete a note", async () => {
     }),
   });
   const postNoteBody = await postNoteRes.json();
-  
+  console.log(postNoteBody)
   const deleteNoteRes = await fetch(`${SERVER_URL}/deleteNote/${postNoteBody.id}`, {
     method: "DELETE",
     headers: {
