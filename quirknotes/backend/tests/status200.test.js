@@ -37,13 +37,65 @@ test("/getAllNotes - Return list of two notes for getAllNotes", async () => {
 });
 
 test("/deleteNote - Delete a note", async () => {
-  // Code here
-  expect(false).toBe(true);
+  //create note
+  const title = "NoteTitleTest";
+  const content = "NoteTitleContent";
+
+  const postNoteRes = await fetch(`${SERVER_URL}/postNote`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      title: title,
+      content: content,
+    }),
+  });
+  const postNoteBody = await postNoteRes.json();
+  
+  const deleteNoteRes = await fetch(`${SERVER_URL}/deleteNote/${postNoteBody.id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    }
+  });
+
+  const poo = await deleteNoteRes.json();
+  expect(deleteNoteRes.status).toBe(200);
+  expect(poo.response).toBe(`Document with ID ${postNoteBody.id} deleted.`);
+  
 });
 
 test("/patchNote - Patch with content and title", async () => {
-  // Code here
-  expect(false).toBe(true);
+  const title = "NoteTitleTest";
+  const content = "NoteTitleContent";
+
+  const postNoteRes = await fetch(`${SERVER_URL}/postNote`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      title: title,
+      content: content,
+    }),
+  });
+  const postNoteBody = await postNoteRes.json();
+  
+  const patchRes = await fetch(`${SERVER_URL}/patchNote/${postNoteBody.id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      title: title,
+      content: content,
+    }),
+  });
+  const poo = await patchRes.json();
+  expect(patchRes.status).toBe(200);
+  expect(poo.response).toBe(`Document with ID ${postNoteBody.id} patched.`);
+
 });
 
 test("/patchNote - Patch with just title", async () => {
