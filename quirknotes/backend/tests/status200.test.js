@@ -46,6 +46,7 @@ test("/getAllNotes - Return list of zero notes for getAllNotes", async () => {
 
   const getAllNotesBody = await getAllNotesRes.json();
 
+  console.log(getAllNotesBody);
 
   expect(getAllNotesRes.status).toBe(200);
   expect(getAllNotesBody.length).toBe(0);
@@ -102,10 +103,12 @@ test("/getAllNotes - Return list of two notes for getAllNotes", async () => {
   
   await deleteNotesRes2.json();
 
+  console.log(getAllNotesBody);
+
   expect(getAllNotesRes.status).toBe(200);
   expect(getAllNotesBody.length).toBe(2);
-  expect(getAllNotesBody[0].title).toBe("Note 1");
-  expect(getAllNotesBody[1].title).toBe("Note 2");
+  expect(getAllNotesBody.response[0].title).toBe("Note 1");
+  expect(getAllNotesBody.response[1].title).toBe("Note 2");
 });
 
 test("/deleteNote - Delete a note", async () => {
