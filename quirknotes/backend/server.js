@@ -40,13 +40,18 @@ const COLLECTIONS = {
 
 // Get all notes available
 app.get("/getAllNotes", express.json(), async (req, res) => {
-  try {
-    // Find notes with username attached to them
-    const collection = db.collection(COLLECTIONS.notes);
-    const data = await collection.find().toArray();
-    res.json({ response: [] });
+    try {
+      // Find note with given ID
+      const collection = db.collection(COLLECTIONS.notes);
+      const notes = await collection.find({  }).toArray();
+      if (!notes) {
+        return res
+          .status(404)
+          .json({ error: "Unable to find note with given ID." });
+      }
+      res.json({ response: notes, length: notes.length });
   } catch (error) {
-    res.status(500).json({error: error.message})
+    res.status(500).json({ error: error.message });
   }
 })
   
