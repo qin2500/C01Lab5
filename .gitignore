@@ -6,5 +6,8 @@ node_modules/
 # database
 */data
 
+# db
+*/db
+
 # misc
 .DS_Store
